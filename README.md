@@ -1,1 +1,1 @@
-[Refactoring](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=236186172)
+#[Refactoring 2판](https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=236186172)
