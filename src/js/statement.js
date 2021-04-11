@@ -9,11 +9,12 @@ export function statement(invoice, plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(playFor(perf), perf);
     volumeCredits += Math.max(perf.audience - 30, 0);
     if ("comedy" === playFor(perf).type) volumeCredits += Math.floor(perf.audience / 5);
-    result += ` ${playFor(perf).name}: ${format(thisAmount / 100)} (${perf.audience}석)`;
-    totalAmount += thisAmount;
+    result += ` ${playFor(perf).name}: ${format(amountFor(playFor(perf), perf) / 100)} (${
+      perf.audience
+    }석)`;
+    totalAmount += amountFor(playFor(perf), perf);
   }
   result += `총액: ${format(totalAmount / 100)}`;
   result += `적립 포인트: ${volumeCredits}점`;
