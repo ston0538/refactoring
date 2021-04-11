@@ -1,27 +1,3 @@
-function amountFor(play, aPerformance) {
-  let result = 0;
-  switch (play.type) {
-    case "tragedy":
-      result = 40000;
-      if (aPerformance.audience > 30) {
-        result += 1000 * (aPerformance.audience - 30);
-      }
-      break;
-    case "comedy":
-      result = 30000;
-      if (aPerformance.audience > 20) {
-        result += 10000 + 500 * (aPerformance.audience - 20);
-      }
-      result += 300 * aPerformance.audience;
-      break;
-    default:
-      throw new Error(`알 수 없는 장르: ${play.type}`);
-  }
-  return result;
-}
-
-
-
 export function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
@@ -31,10 +7,6 @@ export function statement(invoice, plays) {
     currency: "USD",
     minimumFractionDigits: 2,
   }).format;
-
-  function playFor(aPerfomance) {
-    return plays[aPerfomance.playID]
-  }
 
   for (let perf of invoice.performances) {
     let thisAmount = amountFor(playFor(perf), perf);
@@ -46,7 +18,30 @@ export function statement(invoice, plays) {
   result += `총액: ${format(totalAmount / 100)}`;
   result += `적립 포인트: ${volumeCredits}점`;
   return result;
+
+  function amountFor(play, aPerformance) {
+    let result = 0;
+    switch (play.type) {
+      case "tragedy":
+        result = 40000;
+        if (aPerformance.audience > 30) {
+          result += 1000 * (aPerformance.audience - 30);
+        }
+        break;
+      case "comedy":
+        result = 30000;
+        if (aPerformance.audience > 20) {
+          result += 10000 + 500 * (aPerformance.audience - 20);
+        }
+        result += 300 * aPerformance.audience;
+        break;
+      default:
+        throw new Error(`알 수 없는 장르: ${play.type}`);
+    }
+    return result;
+  }
+
+  function playFor(aPerfomance) {
+    return plays[aPerfomance.playID];
+  }
 }
-
-
-
