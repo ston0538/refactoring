@@ -6,9 +6,13 @@ export class Order {
   get basePrice() {
     return this._quantity * this._item;
   }
-  get price() {
+  get discountFactor() {
     let discountFactor = 0.98;
     if (this.basePrice > 1000) discountFactor -= 0.03;
+    return discountFactor;
+  }
+  get price() {
+    const discountFactor = this.discountFactor;
     return this.basePrice * discountFactor;
   }
 }
