@@ -12,7 +12,6 @@ export class Order {
     return discountFactor;
   }
   get price() {
-    const discountFactor = this.discountFactor;
-    return this.basePrice * discountFactor;
+    return this.basePrice * this.discountFactor;
   }
 }
