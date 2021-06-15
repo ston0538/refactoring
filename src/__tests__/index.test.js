@@ -1,8 +1,9 @@
-import { Order } from "../index";
+import { alertForMiscreant } from "../index";
 
-describe("임시 변수를 질의 함수로 바꾸기", () => {
+describe("질의 함수와 변경 함수 분리하기", () => {
   it("price", () => {
-    const order = new Order(10, 1000);
-    expect(order.price).toEqual(9500);
+    const people = ["joker", "saluman", "Don", "John"];
+    const found = alertForMiscreant(people);
+    expect(found).toEqual("Don");
   });
 });
