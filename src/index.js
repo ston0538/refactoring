@@ -48,12 +48,12 @@ export function statement(invoice, plays) {
   }
 
   function volumeCreditsFor(perf) {
-    let volumeCredits = 0;
-    volumeCredits += Math.max(perf.audience - 30, 0);
+    let result = 0;
+    result += Math.max(perf.audience - 30, 0);
     // add extra credit for every ten comedy attendees
     if ('comedy' === playFor(perf).type)
-      volumeCredits += Math.floor(perf.audience / 5);
+      result += Math.floor(perf.audience / 5);
 
-    return volumeCredits;
+    return result;
   }
 }
