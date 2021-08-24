@@ -4,7 +4,6 @@ export function statement(invoice, plays) {
     result += ` ${playFor(perf).name}: ${usd(
       amountFor(perf, playFor(perf))
     )} (${perf.audience}석)\n`;
-    totalAmount += amountFor(perf, playFor(perf));
   }
 
   let totalAmount = 0;
