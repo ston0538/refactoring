@@ -51,17 +51,12 @@ function createStatementData(invoice, plays) {
     );
     const result = { ...aPerformance };
     result.play = calculator.play;
-    result.amount = amountFor(result);
+    result.amount = calculator.amount;
     result.volumeCredits = volumeCreditsFor(result);
     return result;
   }
   function playFor(aPerformance) {
     return plays[aPerformance.playID];
-  }
-
-  function amountFor(aPerformance) {
-    return new PerformanceCalculator(aPerformance, playFor(aPerformance))
-      .amount;
   }
 
   function volumeCreditsFor(aPerformance) {
