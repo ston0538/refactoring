@@ -1,40 +1,10 @@
-function createPerformanceCalculator(aPerformance, aPlay) {
-  switch (aPlay.type) {
-    case 'tragedy':
-      return new TragedyCalculator(aPerformance, aPlay);
-
-    case 'comedy':
-      return new ComedyCalculator(aPerformance, aPlay);
-
-    default:
-      throw new Error(`unknown type: ${this.play.type}`);
-  }
-}
 class PerformanceCalculator {
   constructor(aPerformance, aPlay) {
     this.performances = aPerformance;
     this.play = aPlay;
   }
   get amount() {
-    let result = 0;
-    switch (this.play.type) {
-      case 'tragedy':
-        result = 40000;
-        if (this.performances.audience > 30) {
-          result += 1000 * (this.performances.audience - 30);
-        }
-        break;
-      case 'comedy':
-        result = 30000;
-        if (this.performances.audience > 20) {
-          result += 10000 + 500 * (this.performances.audience - 20);
-        }
-        result += 300 * this.performances.audience;
-        break;
-      default:
-        throw new Error(`unknown type: ${this.play.type}`);
-    }
-    return result;
+    throw new Error('서브클래스에서 처리하도록 설계 되었습니다.');
   }
   get volumeCredits() {
     let result = 0;
@@ -56,13 +26,25 @@ class TragedyCalculator extends PerformanceCalculator {
   }
 }
 class ComedyCalculator extends PerformanceCalculator {
-  get amout() {
+  get amount() {
     let result = 30000;
     if (this.performances.audience > 20) {
       result += 10000 + 500 * (this.performances.audience - 20);
     }
     result += 300 * this.performances.audience;
     return result;
+  }
+}
+function createPerformanceCalculator(aPerformance, aPlay) {
+  switch (aPlay.type) {
+    case 'tragedy':
+      return new TragedyCalculator(aPerformance, aPlay);
+
+    case 'comedy':
+      return new ComedyCalculator(aPerformance, aPlay);
+
+    default:
+      throw new Error(`unknown type: ${this.play.type}`);
   }
 }
 
