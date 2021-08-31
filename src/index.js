@@ -16,7 +16,7 @@ export function statement(invoice, plays) {
 function renderPlainText(data) {
   let result = `청구 내역 (고객명: ${data.customer})\n`;
   for (let perf of data.performances) {
-    result += ` ${perf.play.name}: ${usd(amountFor(perf, perf.play.name))} (${
+    result += ` ${perf.play.name}: ${usd(amountFor(perf))} (${
       perf.audience
     }석)\n`;
   }
@@ -28,7 +28,7 @@ function renderPlainText(data) {
   function totalAmount() {
     let result = 0;
     for (let perf of data.performances) {
-      result += amountFor(perf, perf.play.name);
+      result += amountFor(perf);
     }
     return result;
   }
