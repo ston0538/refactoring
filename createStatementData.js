@@ -55,7 +55,16 @@ class TragedyCalculator extends PerformanceCalculator {
     return result;
   }
 }
-class ComedyCalculator extends PerformanceCalculator {}
+class ComedyCalculator extends PerformanceCalculator {
+  get amout() {
+    let result = 30000;
+    if (this.performances.audience > 20) {
+      result += 10000 + 500 * (this.performances.audience - 20);
+    }
+    result += 300 * this.performances.audience;
+    return result;
+  }
+}
 
 function createStatementData(invoice, plays) {
   const statementData = {};
