@@ -8,6 +8,7 @@ export function statement(invoice, plays) {
     const result = { ...aPerformance };
     result.play = playFor(result);
     result.amount = amountFor(result);
+    result.volumeCredits = volumeCreditsFor(result);
     return result;
   }
   function playFor(aPerformance) {
@@ -34,6 +35,15 @@ export function statement(invoice, plays) {
     }
     return result;
   }
+  function volumeCreditsFor(aPerformance) {
+    let result = 0;
+    result += Math.max(aPerformance.audience - 30, 0);
+    // add extra credit for every ten comedy attendees
+    if ("comedy" === aPerformance.play.type)
+      result += Math.floor(aPerformance.audience / 5);
+
+    return result;
+  }
 }
 function renderPlainText(data) {
   let result = `청구 내역 (고객명: ${data.customer})\n`;
@@ -55,20 +65,11 @@ function renderPlainText(data) {
   function totalVolumeCredits() {
     let result = 0;
     for (let perf of data.performances) {
-      result += volumeCreditsFor(perf);
+      result += perf.volumeCredits;
     }
     return result;
   }
 
-  function volumeCreditsFor(aPerformance) {
-    let result = 0;
-    result += Math.max(aPerformance.audience - 30, 0);
-    // add extra credit for every ten comedy attendees
-    if ("comedy" === aPerformance.play.type)
-      result += Math.floor(aPerformance.audience / 5);
-
-    return result;
-  }
   function usd(aNumber) {
     return new Intl.NumberFormat("en-US", {
       style: "currency",
